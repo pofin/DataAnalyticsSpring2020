@@ -154,3 +154,16 @@ qplot(interaction(ToothGrowth$supp, ToothGrowth$dose), ToothGrowth$len, geom = "
 qplot(interaction(supp, dose), len, data = ToothGrowth, geom = "boxplot")
 
 ggplot(ToothGrowth, aes(x=interaction(supp, dose), y=len)) + geom_boxplot()
+
+
+#Multi-variate part zwei
+HP <- Homeowners/Population
+PD <- Population/area
+mm <- lm(Immigrant~Income+Population+HP+PD)
+summary(mm)
+
+lm(formula = Immigrant ~ Income +Population + HP +PD)
+
+
+
+
