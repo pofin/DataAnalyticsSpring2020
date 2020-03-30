@@ -84,7 +84,7 @@ Titanic.df['Survived']= NULL
 Titanic.df["Freq"]= NULL
 head(Titanic.df)
 
-Titanic.df$Survive <- as.character(Titanic.df$Survive)
+Titanic.df$Survive <- as.numeric(Titanic.df$Survive)
 
 
 
@@ -96,12 +96,25 @@ rpart.plot(Titanic_rpart, type = 3, fallen.leaves = TRUE)
 rpart.plot(Titanic_rpart, type= 3,digits =3, fallen.leaves = TRUE)
 
 #ctree
-require(C50)
-Titanic
+require(party)
+Titanic.df <- as.data.frame(Titanic)
+Titanic.df
+treeTitanic <- ctree(Survived ~., data = Titanic.df)
+plot(treeTitanic)
+
+#hclust
+help(hclust)
 
 
+#randomforest
+library(randomForest)
 
+set.seed(7117)
+train <- sample(nrow(Titanic.df), 0.7*nrow(Titanic.df), replace = FALSE)
+TrainSet <- Titanic.df[train,]
+ValidSet <- Titanic.df[-train,]
 
+modelT <- randomForest(Survived ~ ., data = TrainSet, importance = TRUE)
+modelT
 
-
-
+plot(modelT)
